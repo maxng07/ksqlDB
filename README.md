@@ -151,7 +151,8 @@ ksql> show tables;
 ------------------------------------------------------------------
  BOTNETTABLE | BOTNETTABLE | DELIMITED  | DELIMITED    | false    
 ------------------------------------------------------------------
-ksql> ```
+ksql> 
+```
 
 ##### Some kafka tricks #####
 Deleting messages from kafka topics
