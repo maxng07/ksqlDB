@@ -23,6 +23,9 @@ CLI v0.28.2, Server v0.28.2 located at http://localhost:8088
 Server Status: RUNNING
 
 ## Configuring ksqlDB on topic with delimiter format
+
+Something to note, there are reserved key words in ksql that you cannot used. A good example is "-", if you have that and need to use it in your table or stream, you can use a back quote \`\ instead of forward quote. ksqlDB differentiate between back, forward and double quote.
+
 1. create stream botnet (Date VARCHAR, Time VARCHAR, Method VARCHAR, URI VARCHAR,ClientIP VARCHAR, `User-agent` VARCHAR) WITH (kafka_topic='webserver', key_format='delimited', value_format='delimited', VALUE_DELIMITER='SPACE');
 
 2. Once the stream is created, you can query the data using SQL select. ksql does not support ORDER BY 
