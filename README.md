@@ -35,6 +35,7 @@ select count(*) from botnet where `User-agent` LIKE '%python%' emit changes;
 select * from botnet where `User-agent` NOT LIKE '%Mozilla%';
 
 select count(*) as count, `User-agent`, CLIENTIP, METHOD, URI  from botnet GROUP BY `User-agent`, CLIENTIP, METHOD, URI  emit changes;
+```
 +--------------------+--------------------+--------------------+--------------------+--------------------+
 |COUNT               |User-agent          |CLIENTIP            |METHOD              |URI                 |
 +--------------------+--------------------+--------------------+--------------------+--------------------+
@@ -58,7 +59,7 @@ select count(*) as count, `User-agent`, CLIENTIP, METHOD, URI  from botnet GROUP
 |1                   |Mozilla/5.0         |66.249.66.9         |GET                 |/                   |
 |2                   |Mozilla/5.0         |167.94.146.59       |GET                 |/                   |
 |2                   |Mozilla/5.0         |167.94.146.59       |GET                 |/favicon.ico        |
-
+```
 With delimiter file with SPACE, you will have to define all the columns. With JSON, you can select which keys you like to be part of the stream to be included, offering greater flexibility of not importing all data. With Delimiter format log, if you space as the "delimit" format, care should be taken as any space between description can be mistook by ksql. I clean up my logs with sed and awk to have meaningful analysis. ksqlDB only works on structure data.
 
 
