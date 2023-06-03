@@ -143,6 +143,16 @@ ksql> select * from botnettable where count >1;
 |python-requests/2.28.1    |86.98.144.188             |/zabbix                   |2                         |
 |python-requests/2.28.1    |86.98.144.188             |/ztp/cgi-bin/handler      |4                         |
 ```
+
+ksql> show tables;
+```
+
+ Table Name  | Kafka Topic | Key Format | Value Format | Windowed 
+------------------------------------------------------------------
+ BOTNETTABLE | BOTNETTABLE | DELIMITED  | DELIMITED    | false    
+------------------------------------------------------------------
+ksql> ```
+
 ##### Some kafka tricks #####
 Deleting messages from kafka topics
 kafka-delete-records.sh --bootstrap-server 192.168.0.100:9092  --offset-json-file delete-records.json
