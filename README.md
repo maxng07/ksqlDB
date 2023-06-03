@@ -65,15 +65,16 @@ select count(*) as count, `User-agent`, CLIENTIP, METHOD, URI  from botnet GROUP
 ```
 With delimiter file with SPACE, you will have to define all the columns. With JSON, you can select which keys you like to be part of the stream to be included, offering greater flexibility of not importing all data. With Delimiter format log, if you space as the "delimit" format, care should be taken as any space between description can be mistook by ksql. I clean up my logs with sed and awk to have meaningful analysis. ksqlDB only works on structure data.
 
-## Creating Materialised View or Table 
+## Creating Materialised View or Table ##
 ksqlDB supports creating a Materialised View or table in rocksdb that aids querying data from the table much faster. We can create a table with interested datasets by using the select statement.
 
 ksql> create table botnettable as select count(*) as count, `User-agent`,ClientIP,URI from botnet GROUP BY `User-agent`,ClientIP,URI;
-
- Message                                   
+                                
+```
 -------------------------------------------
  Created query with ID CTAS_BOTNETTABLE_45 
-----------
+ ----------
+ ```
 
 After the table is created, you can query from the table where count is more than 1. This cannot be done on streams. However, you can query streams that match on specified values like matching strings.
 
