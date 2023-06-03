@@ -155,6 +155,40 @@ ksql> show tables;
 ksql> 
 ```
 
+## Stream - Table, Stream - Stream, Table - Table JOIN ##
+ksqlDB supports JOIN between 2 streams, Stream - table (the reverse does not work), and 2 table joins.
+Something to note table-stream joins are not supported; only stream-table joins, Stream-table will require a key in table, join to the key.
+
+Stream-stream join will require WITHIN to specified the time
+1. Executing Stream - Stream JOIN and comparing
+ksql> select * from example a LEFT OUTER JOIN botnet b WITHIN (0 SECONDS, 7 DAYS)  ON a.IP = b.ClIENTIP emit changes;
+```
++----------+----------+----------+----------+----------+----------+----------+----------+----------+
+|A_DATE    |A_TIME    |A_IP      |B_DATE    |B_TIME    |B_METHOD  |B_URI     |B_CLIENTIP|B_User-age|
+|          |          |          |          |          |          |          |          |nt        |
++----------+----------+----------+----------+----------+----------+----------+----------+----------+
+|2023/05/23|18:22:52  |64.62.197.|2021-04-03|09:21:00  |GET       |/         |64.62.197.|          |
+|          |          |2         |          |          |          |          |2         |          |
+|2023/05/23|18:22:52  |64.62.197.|2021-04-07|08:44:36  |GET       |/         |64.62.197.|          |
+|          |          |2         |          |          |          |          |2         |          |
+|2023/04/28|05:29:14  |185.180.14|2021-09-18|02:48:56  |GET       |/remote/lo|185.180.14|Mozilla/5.|
+|          |          |3.136     |          |          |          |gin       |3.136     |0 10.0;   |
+|2023/05/13|15:46:11  |64.62.197.|2022-10-27|13:25:13  |GET       |/favicon.i|64.62.197.|Mozilla/5.|
+|          |          |200       |          |          |          |co        |200       |0 Linux   |
+|2023/04/30|11:54:59  |74.82.47.2|2022-11-12|18:52:27  |GET       |/         |74.82.47.2|Mozilla/5.|
+|          |          |4         |          |          |          |          |4         |0 x86_64; |
+|2023/05/20|20:05:58  |185.180.14|2022-11-16|06:52:30  |GET       |/         |185.180.14|Mozilla/5.|
+|          |          |3.18      |          |          |          |          |3.18      |0 10.0;   |
+|2023/05/20|20:05:58  |185.180.14|2022-11-16|06:52:44  |GET       |/webfig/  |185.180.14|Mozilla/5.|
+|          |          |3.18      |          |          |          |          |3.18      |0 10.0;   |
+|2023/05/20|20:05:58  |185.180.14|2022-11-16|06:52:57  |GET       |/solr/    |185.180.14|Mozilla/5.|
+|          |          |3.18      |          |          |          |          |3.18      |0 10.0;   |
+|2023/05/21|03:50:52  |185.180.14|2022-12-07|18:46:23  |GET       |/webfig/  |185.180.14|Mozilla/5.|
+|          |          |3.11      |          |          |          |          |3.11      |0 10.0;   |
+|2023/05/09|10:00:01  |64.62.197.|2022-12-25|22:42:10  |GET       |/api/v2/st|64.62.197.|Mozilla/5.|
+|          |          |91        |          |          |          |atic/not.f|91        |0 10.0;   |
+|          |          |          |          |          |          |ound      |          |          |
+```
 ##### Some kafka tricks #####
 Deleting messages from kafka topics
 kafka-delete-records.sh --bootstrap-server 192.168.0.100:9092  --offset-json-file delete-records.json
