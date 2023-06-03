@@ -24,7 +24,7 @@ Server Status: RUNNING
 
 ## Configuring ksqlDB on topic with delimiter format
 
-Something to note, there are reserved key words in ksql that you cannot used. A good example is "-", if you have that and need to use it in your table or stream, you can use a back quote \` instead of forward quote. ksqlDB differentiate between back, forward and double quote.
+Something to note, there are reserved key words in ksql that you cannot used. A good example is "-", if you have that and need to use it in your table or stream, you can use a back quote \` instead of forward quote. ksqlDB differentiate between back, forward and double quote. In my case, User-agent has to be enclosed with \` quote.
 
 1. create stream botnet (Date VARCHAR, Time VARCHAR, Method VARCHAR, URI VARCHAR,ClientIP VARCHAR, `User-agent` VARCHAR) WITH (kafka_topic='webserver', key_format='delimited', value_format='delimited', VALUE_DELIMITER='SPACE');
 
