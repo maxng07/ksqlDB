@@ -28,7 +28,8 @@ Something to note, there are reserved key words in ksql that you cannot used. A 
 
 1. create stream botnet (Date VARCHAR, Time VARCHAR, Method VARCHAR, URI VARCHAR,ClientIP VARCHAR, `User-agent` VARCHAR) WITH (kafka_topic='webserver', key_format='delimited', value_format='delimited', VALUE_DELIMITER='SPACE');
 
-2. Once the stream is created, you can query the data using SQL select. ksql does not support ORDER BY 
+2. Once the stream is created, you can query the data using SQL select. ksql does not support ORDER BY
+3. And remember to see data from the earliest, you should either set this on ksql-cli SET 'auto.offset.reset' = 'earliest'; or in the ksql-server.properties
 
 select * from botnet;
 Display all the logs from the topic
