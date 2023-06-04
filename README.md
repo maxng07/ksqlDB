@@ -1,6 +1,6 @@
 # ksqlDB
 
-This is to document the learnings I have on ksqlDB. Version installed 28.2. I installed kafka and ksqlDB on the same 4 vCPU, 8G RAM VM. This does not cover installations, a lot of guide can be found online in confluent website for downloading and installing ksqlDB. I created 2 topics for ingestion of logs from my server. 6 months worth of logs, approx 13K entries of lines for one of the topic, intending to create more topics. Each Stream processing creates topic in kafka.
+This is to document the learnings I have on ksqlDB. Version installed 28.2. I installed kafka and ksqlDB on the same 4 vCPU, 8G RAM VM. This does not cover installations, a lot of guide can be found online in confluent website for downloading and installing ksqlDB. I created 2 topics for ingestion of logs from my server. 6 months worth of logs, approx 13K entries of lines for one of the topic, intending to create more topics. Each Stream processing creates topic in kafka. For sizing guide, please refer to confluent website.
 
 
 CLI v0.28.2, Server v0.28.2
