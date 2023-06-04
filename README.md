@@ -1,6 +1,6 @@
 # ksqlDB
 
-This is to document the learnings I have on ksqlDB. Version installed 28.2. I installed kafka and ksqlDB on the same 4 vCPU, 16G RAM VM.
+This is to document the learnings I have on ksqlDB. Version installed 28.2. I installed kafka and ksqlDB on the same 4 vCPU, 16G RAM VM. This does not cover installations, a lot of guide can be found online in confluent website for downloading and installing ksqlDB.
 
 CLI v0.28.2, Server v0.28.2
 
@@ -24,7 +24,7 @@ Server Status: RUNNING
 
 ## Configuring ksqlDB on topic with delimiter format
 
-Something to note, there are reserved key words in ksql that you cannot used. A good example is "-", if you have that and need to use it in your table or stream, you can use a back quote \` instead of forward quote. ksqlDB differentiate between back, forward and double quote. In my case, User-agent has to be enclosed with \` quote. In a delimited format with space, you can technically used any column name, but in JSON, you if you like to select the key in your json that also uses "-", then the back quote is useful.
+Something to note, there are reserved key words in ksql that you cannot used for columns. A good example is "-", if you have that and need to use it in your table or stream, you can use a back quote \` instead of forward quote. ksqlDB differentiate between back, forward and double quote. In my case, User-agent has to be enclosed with \` quote. In a delimited format with space, you can technically used any column name, but in JSON, you if you like to select the key in your json that also uses "-", then the back quote is useful.
 
 1. create stream botnet (Date VARCHAR, Time VARCHAR, Method VARCHAR, URI VARCHAR,ClientIP VARCHAR, `User-agent` VARCHAR) WITH (kafka_topic='webserver', key_format='delimited', value_format='delimited', VALUE_DELIMITER='SPACE');
 
@@ -35,8 +35,10 @@ select * from botnet;
 Display all the logs from the topic
 
 select count(*) from botnet where `User-agent` LIKE '%python%' emit changes;
+Display and count based on User-agent column which contains the string "python"
 
 select * from botnet where `User-agent` NOT LIKE '%Mozilla%';
+Display all data from topic where the Column User-agent does not contain string Mozilla
 
 select count(*) as count, `User-agent`, CLIENTIP, METHOD, URI  from botnet GROUP BY `User-agent`, CLIENTIP, METHOD, URI  emit changes;
 ```
@@ -64,7 +66,7 @@ select count(*) as count, `User-agent`, CLIENTIP, METHOD, URI  from botnet GROUP
 |2                   |Mozilla/5.0         |167.94.146.59       |GET                 |/                   |
 |2                   |Mozilla/5.0         |167.94.146.59       |GET                 |/favicon.ico        |
 ```
-With delimiter file with SPACE, you will have to define all the columns. With JSON, you can select which keys you like to be part of the stream to be included, offering greater flexibility of not importing all data. With Delimiter format log, if you space as the "delimit" format, care should be taken as any space between description can be mistook by ksql. I clean up my logs with sed and awk to have meaningful analysis. ksqlDB only works on structure data.
+With delimiter file with SPACE, you will have to define all the columns. With JSON, you can select which keys you like to be part of the stream to be included, offering greater flexibility of not importing all data. With Delimiter format log, if you have space as the "delimit" format, care should be taken as any space in your data log such as description can be mistook by ksql. In my case, User-agent field for HTTP contains long description with space, kSQL mistook it as another column. I end up cleaning up my logs with sed and awk to have meaningful analysis. ksqlDB only works on structure data.
 
 ## Creating Materialised View or Table ##
 ksqlDB supports creating a Materialised View or table in rocksdb that aids querying data from the table much faster. We can create a table with interested datasets by using the select statement.
