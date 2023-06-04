@@ -162,7 +162,7 @@ ksqlDB supports JOIN between 2 streams, Stream - table (the reverse does not wor
 Something to note table-stream joins are not supported; only stream-table joins, Stream-table will require a key in table, join to the key.
 
 Stream-stream join will require WITHIN to specified the time
-1. Executing Stream - Stream JOIN and comparing, note the LEFT OUTER JOIN key word to join with another stream, using condition IP of stream example and ClientIP in botnet stream.
+1. Executing Stream - Stream JOIN and comparing, note the LEFT OUTER JOIN key word to join with another stream, using condition IP of stream example and ClientIP in botnet stream.</br>
 ksql> select * from example a LEFT OUTER JOIN botnet b WITHIN (0 SECONDS, 7 DAYS)  ON a.IP = b.ClIENTIP emit changes;
 ```
 +----------+----------+----------+----------+----------+----------+----------+----------+----------+
