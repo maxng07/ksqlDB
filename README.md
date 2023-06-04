@@ -31,13 +31,13 @@ Something to note, there are reserved key words in ksql that you cannot used for
 2. Once the stream is created, you can query the data using SQL select. ksql does not support ORDER BY
 3. And remember to see data from the earliest, you should either set this on ksql-cli SET 'auto.offset.reset' = 'earliest'; or in the ksql-server.properties
 
-select * from botnet;
+select * from botnet; </br>
 Display all the logs from the topic
 
-select count(*) from botnet where `User-agent` LIKE '%python%' emit changes;
+select count(*) from botnet where `User-agent` LIKE '%python%' emit changes; </br>
 Display and count based on User-agent column which contains the string "python"
 
-select * from botnet where `User-agent` NOT LIKE '%Mozilla%';
+select * from botnet where `User-agent` NOT LIKE '%Mozilla%'; </br>
 Display all data from topic where the Column User-agent does not contain string Mozilla
 
 select count(*) as count, `User-agent`, CLIENTIP, METHOD, URI  from botnet GROUP BY `User-agent`, CLIENTIP, METHOD, URI  emit changes;
@@ -162,7 +162,7 @@ ksqlDB supports JOIN between 2 streams, Stream - table (the reverse does not wor
 Something to note table-stream joins are not supported; only stream-table joins, Stream-table will require a key in table, join to the key.
 
 Stream-stream join will require WITHIN to specified the time
-1. Executing Stream - Stream JOIN and comparing
+1. Executing Stream - Stream JOIN and comparing, note the LEFT OUTER JOIN key word to join with another stream, using condition IP of stream example and ClientIP in botnet stream.
 ksql> select * from example a LEFT OUTER JOIN botnet b WITHIN (0 SECONDS, 7 DAYS)  ON a.IP = b.ClIENTIP emit changes;
 ```
 +----------+----------+----------+----------+----------+----------+----------+----------+----------+
