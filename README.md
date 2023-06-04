@@ -1,6 +1,6 @@
 # ksqlDB
 
-This is to document the learnings I have on ksqlDB. Version installed 28.2. I installed kafka and ksqlDB on the same 4 vCPU, 16G RAM VM. This does not cover installations, a lot of guide can be found online in confluent website for downloading and installing ksqlDB.
+This is to document the learnings I have on ksqlDB. Version installed 28.2. I installed kafka and ksqlDB on the same 4 vCPU, 8G RAM VM. This does not cover installations, a lot of guide can be found online in confluent website for downloading and installing ksqlDB.
 
 CLI v0.28.2, Server v0.28.2
 
