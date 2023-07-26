@@ -203,5 +203,6 @@ kafka-console-consumer.sh --bootstrap-server 192.168.0.100:9092 --topic webserve
 Ingesting records
 kafka-console-producer.sh --bootstrap-server 192.168.0.100:9092 --topic webserver </yyy/xxx.log
 
+
 ### Ingesting JSON data to ksqlDB stream
-The details is in the Wiki Page for JSON data
+The details is in the <a href="https://github.com/maxng07/ksqlDB/wiki"> Wiki Page </a> for JSON data
